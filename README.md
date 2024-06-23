@@ -1,4 +1,4 @@
 # PMC Portal Frontend
 
-Contributor:
-Gordon Cheung
+## Contributor:
+- Gordon Cheung

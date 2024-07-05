@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/dashboard",
-    element: <></>
+    element: <h1>Dashboard goes here</h1>
   },
   {
     path: "/event/:eventId", //passes a params object to element containing :id

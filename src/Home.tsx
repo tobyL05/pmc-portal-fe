@@ -1,13 +1,10 @@
 import './App.css'
 import { GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithPopup } from 'firebase/auth';
 import { auth } from "../firebase"
-import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
 
   // session is saved to cookie
-
-  const navigateTo = useNavigate()
 
   async function checkAuth() {
       const checkAuth = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/test`, {
@@ -24,7 +21,7 @@ export default function Home() {
         signInResult = await signInWithPopup(auth, authProvider)
         const user = signInResult.user;
         const idToken = await user.getIdToken()
-        const req = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -35,8 +32,8 @@ export default function Home() {
             idToken: idToken
           })
         })
-        if (req.ok && await checkAuth()) {
-          console.log("authenticated")
+        if (res.ok && await checkAuth()) {
+          console.log("authenticated") // DEBUGGING
           // navigateTo("/dashboard")
         }
       } catch (error) {

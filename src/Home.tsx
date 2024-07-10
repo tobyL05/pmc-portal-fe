@@ -1,10 +1,11 @@
 import './App.css'
 import { GoogleAuthProvider, inMemoryPersistence, setPersistence, signInWithPopup } from 'firebase/auth';
 import { auth } from "../firebase"
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
 
-  // session is saved to cookie
+  const navigateTo = useNavigate()
 
   async function checkAuth() {
       const checkAuth = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/test`, {
@@ -34,7 +35,10 @@ export default function Home() {
         })
         if (res.ok && await checkAuth()) {
           console.log("authenticated") // DEBUGGING
-          // navigateTo("/dashboard")
+          navigateTo("/dashboard")
+        } else if (res.status == 302) {
+          console.log("redirect to onboarding")
+          navigateTo("/onboarding")
         }
       } catch (error) {
         console.log(error);

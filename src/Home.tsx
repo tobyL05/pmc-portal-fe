@@ -34,13 +34,14 @@ export default function Home() {
           })
         })
         if (res.ok && await checkAuth()) {
-          console.log("authenticated") // DEBUGGING
+          // User exists so go to /dashboard
           navigateTo("/dashboard")
         } else if (res.status == 302) {
-          console.log("redirect to onboarding")
+          // New user so go to /onboarding
           navigateTo("/onboarding")
         }
       } catch (error) {
+        // Show some sort of error component
         console.log(error);
       }
   }

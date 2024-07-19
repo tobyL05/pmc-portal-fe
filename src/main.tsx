@@ -10,12 +10,8 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: "/:id",
-    element: <Home />
-  },
-  {
     path: "/onboarding",
-    element: <></>
+    element: <h1>onboarding/registration goes here</h1>
   },
   {
     path:"/dashboard",

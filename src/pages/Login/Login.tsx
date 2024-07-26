@@ -21,15 +21,10 @@ export default function Home() {
         const idToken = await user.getIdToken()
 
         // Check if user exists by fetching their profile. 
-        let getUser;
-        try {
-          getUser = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/profile/${user.uid}`)
-        } catch (error) {
-          console.log("Hi! You must be new here.")
-        }
+        // const getUser = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/profile/${user.uid}`)
+        // const getUserResp = await getUser.json()
+        // const userExists = getUserResp.exists
 
-        // Existing user
-        if (getUser!.ok) {
           // go to dashboard
           // fetch login endpoint
           const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
@@ -47,18 +42,11 @@ export default function Home() {
             // User exists so go to /dashboard
             navigateTo("/dashboard")
           } else {
-            console.log("error logging in")
             // show the user that an error occurred
+            setUser(user)
+            setLoginCreds({ userUID: user.uid, idToken: idToken })
+            setOnboarding(true) 
           }
-        } else {
-          // New user
-          
-          // show onboarding
-          setUser(user)
-          setLoginCreds({ userUID: user.uid, idToken: idToken })
-          setOnboarding(true) 
-        }
-
       } catch (error) {
         // Error with Google SSO
         // Show some sort of error component

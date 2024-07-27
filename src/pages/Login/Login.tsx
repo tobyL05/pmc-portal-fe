@@ -6,7 +6,7 @@ import { useState } from 'react';
 import OnboardingForm from '../../components/OnboardingForm/OnboardingForm';
 import { loginBody } from '../../types/api';
 
-export default function Home() {
+export default function Login() {
   const [onboarding, setOnboarding] = useState<boolean>(false)
   const [user, setUser] = useState<User | undefined>()
   const [loginCreds, setLoginCreds] = useState<loginBody | undefined>()
@@ -20,38 +20,31 @@ export default function Home() {
         const user: User  = signInResult.user;
         const idToken = await user.getIdToken()
 
-        // Check if user exists by fetching their profile. 
-        // const getUser = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/profile/${user.uid}`)
-        // const getUserResp = await getUser.json()
-        // const userExists = getUserResp.exists
-
-          // go to dashboard
-          // fetch login endpoint
-          const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-              userUID: user.uid,
-              idToken: idToken
-            })
+        // fetch login endpoint
+        const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            userUID: user.uid,
+            idToken: idToken
           })
-          if (login.ok) {
-            // User exists so go to /dashboard
-            navigateTo("/dashboard")
-          } else {
-            // show the user that an error occurred
-            setUser(user)
-            setLoginCreds({ userUID: user.uid, idToken: idToken })
-            setOnboarding(true) 
-          }
-      } catch (error) {
-        // Error with Google SSO
-        // Show some sort of error component
-        console.log(error);
-      }
+        })
+        if (login.ok) {
+          // User exists so go to /dashboard
+          navigateTo("/dashboard")
+        } else {
+          // Currently logged in user that needs to be onboarded
+          setUser(user)
+          setLoginCreds({ userUID: user.uid, idToken: idToken })
+          setOnboarding(true) 
+        }
+    } catch (error) {
+      // Show some sort of error component
+      console.log(error);
+    }
   }
 
   return (

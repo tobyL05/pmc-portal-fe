@@ -40,6 +40,17 @@ const UserZodObj = z.object({
 
 type UserSchema = z.infer<typeof UserZodObj>
 
+/**
+ * 
+ * @param user
+ * The currently logged in user via Google SSO that needs to be onboarded 
+ * 
+ * @param creds
+ * Login credentials such as userUID and idToken needed to exchange for session cookie. 
+ * These credentials are needed as the login method is called after onboarding. 
+ * This will log the user in after onboarding.
+ * 
+ */
 export default function OnboardingForm({ user, creds }: { user: User, creds: loginBody }) {
     const {
         register,
@@ -74,7 +85,6 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
             navigateTo("/dashboard")
         } else {
             // show error component
-            console.log(onboarding.status)
             const jsonresp = await onboarding.json()
             console.log(jsonresp)
 

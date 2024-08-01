@@ -1,38 +1,58 @@
-import { z } from "zod"
+import { coerce, z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import FormInput from "../FormInput/FormInput"
 import { useNavigate } from "react-router-dom"
 import { type User } from "firebase/auth"
 import { loginBody } from "../../types/api"
+import { useEffect } from "react"
 
 
 const UserZodObj = z.object({
     first_name: z.string().min(1,{
         message: "Please enter a first name"
     }),
+
     last_name: z.string().min(1,{
         message: "Please enter a last name"
     }),
-    student_id: z.number({
-        coerce: true,
-    }).min(1,{
-        message: "Please enter a valid student ID"
+
+    ubc_student: z.string().min(1,{
+        message: "Please select an option."
     }),
+
+    student_id: z.number({
+        coerce: true
+    })
+    .int({
+        message: "Student IDs must not have decimal points!"
+    })
+    .gte(10000000, {
+        message: "Please enter a valid 8-digit student ID."
+    })
+    .lte(99999999, {
+        message: "Please enter a valid 8-digit student ID."
+    })
+    .optional(),
+
     year: z.string().min(1,{
         message: "Please select a year"
-    }),
+    }).optional(),
+
     faculty: z.string().min(1,{
         message: "Please enter a valid faculty"
-    }),
+    }).optional(),
+
     major: z.string().min(1,{
         message: "Please enter a valid major"
-    }),
+    }).optional(),
+
     why_pm: z.string().min(1,{
         message: "Why would you like to join PMC?"
     }).max(300, {
         message: "Maximum 300 characters"
     }),
+
     returning_member: z.boolean({
         required_error: "Are you a returning member?"
     })
@@ -54,13 +74,28 @@ type UserSchema = z.infer<typeof UserZodObj>
 export default function OnboardingForm({ user, creds }: { user: User, creds: loginBody }) {
     const {
         register,
+        unregister,
         handleSubmit,
+        watch,
         formState: { errors },
       } = useForm<UserSchema>({
         resolver: zodResolver(UserZodObj)
       })
 
-    const navigateTo = useNavigate()
+    const student_status = watch("ubc_student")
+
+    useEffect(() => {
+        if (student_status === "no, other uni") {
+            // Other university student
+            unregister("student_id")
+        } else {
+            // Not a university student
+            unregister("student_id")
+            unregister("year")
+            unregister("faculty")
+            unregister("major")
+        }
+    },[student_status])
 
     const onSubmit = async (data: UserSchema) => {
         // fetch onboarding endpoint
@@ -91,6 +126,8 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
         }
     }
 
+    const navigateTo = useNavigate()
+
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,40 +147,53 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
                     register={register}
                     error={errors.last_name}
                 />
-                <FormInput
-                    label="Student ID"
-                    type="text"
-                    placeholder="12345678"
-                    name="student_id"
-                    register={register}
-                    error={errors.student_id}
-                />
-
-                <label>Year</label>
-                <select {...register("year",{required: "please select a value"})}>
-                    <option value={"1"}>1</option>
-                    <option value={"2"}>2</option>
-                    <option value={"3"}>3</option>
-                    <option value={"4"}>4</option>
-                    <option value={"4+"}>4+</option>
+                <label>Are you a UBC student?</label>
+                <select defaultValue="Please select a value" {...register("ubc_student",{required: "please select a value"})}>
+                    <option value={"yes"}>Yes</option>
+                    <option value={"no, other uni"}>No, I'm from another university.</option>
+                    <option value={"no, other"}>No, other</option>
                 </select>
 
-                <FormInput
-                    label="Faculty"
-                    type="text"
-                    placeholder="Science"
-                    name="faculty"
-                    register={register}
-                    error={errors.faculty}
-                />
-                <FormInput
-                    label="Major"
-                    type="text"
-                    placeholder="Computer Science"
-                    name="major"
-                    register={register}
-                    error={errors.major}
-                />
+                {student_status === "yes" && 
+                    <FormInput
+                        label="Student ID"
+                        type="text"
+                        placeholder="12345678"
+                        name="student_id"
+                        register={register}
+                        error={errors.student_id}
+                    />
+                }
+
+                {student_status !== "no, other" && 
+                    <>
+                    <label>Year</label>
+                    <select defaultValue="Please select a value" {...register("year",{required: "please select a value"})}>
+                        <option value={"1"}>1</option>
+                        <option value={"2"}>2</option>
+                        <option value={"3"}>3</option>
+                        <option value={"4"}>4</option>
+                        <option value={"4+"}>4+</option>
+                    </select>
+                        <FormInput
+                            label="Faculty"
+                            type="text"
+                            placeholder="Science"
+                            name="faculty"
+                            register={register}
+                            error={errors.faculty}
+                        />
+                        <FormInput
+                            label="Major"
+                            type="text"
+                            placeholder="Computer Science"
+                            name="major"
+                            register={register}
+                            error={errors.major}
+                        />
+                    </>
+                }       
+                
                 <FormInput
                     label="Why product management?"
                     type="text"

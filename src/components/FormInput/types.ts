@@ -3,10 +3,11 @@ import { FieldError, UseFormRegister } from "react-hook-form";
 export type FormData = {
     first_name: string
     last_name: string
-    student_id: number
-    year: string
-    faculty: string
-    major: string
+    ubc_student: string
+    student_id?: number
+    year?: string
+    faculty?: string
+    major?: string
     why_pm: string
     returning_member: boolean
 };

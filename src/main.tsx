@@ -1,21 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Home from './Home.tsx'
+import Login from './pages/Login/Login.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Dashboard from './pages/Dashboard/Dashboard.tsx'
+// import Onboarding from './pages/Onboarding.tsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
-  },
-  {
-    path: "/onboarding",
-    element: <h1>onboarding/registration goes here</h1>
+    element: <Login />
   },
   {
     path:"/dashboard",
-    element: <h1>Dashboard goes here</h1>
+    element: <Dashboard /> 
+  },
+  {
+    path: "/events",
+    element: <h1>Events go here</h1>
   },
   {
     path: "/event/:blob", //passes a params object to element containing :id

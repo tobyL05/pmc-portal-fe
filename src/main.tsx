@@ -4,6 +4,8 @@ import Login from './pages/Login/Login.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard.tsx'
+import Event from './pages/Dashboard/Event.tsx'
+
 // import Onboarding from './pages/Onboarding.tsx'
 
 const router = createBrowserRouter([
@@ -12,12 +14,12 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path:"/dashboard",
-    element: <Dashboard /> 
+    path: "/dashboard",
+    element: <Dashboard />
   },
   {
     path: "/events",
-    element: <h1>Events go here</h1>
+    element: <Event />
   },
   {
     path: "/event/:blob", //passes a params object to element containing :id
@@ -32,6 +34,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     {/* <App /> */}
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

@@ -5,7 +5,6 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard.tsx'
 import Event from './pages/Dashboard/Event.tsx'
-
 // import Onboarding from './pages/Onboarding.tsx'
 
 const router = createBrowserRouter([
@@ -18,13 +17,13 @@ const router = createBrowserRouter([
     element: <Dashboard />
   },
   {
-    path: "/events",
+    path: "/events/:event_id",
     element: <Event />
   },
-  {
-    path: "/event/:blob", //passes a params object to element containing :id
-    element: <></>
-  },
+  // {
+  //   path: "/events/:event_id", //passes a params object to element containing :id
+  //   element: <EventDetails />
+  // },
   {
     path: "/profile/:profileId",
     element: <></>

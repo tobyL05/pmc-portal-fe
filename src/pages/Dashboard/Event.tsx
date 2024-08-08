@@ -9,17 +9,20 @@ import { eventType } from '../../types/api';
 const Event: React.FC = () => {
     const [event, setEvent] = useState<eventType | null>(null);
     const { event_id } = useParams<{ event_id: string }>();
-    // useEffect(() => {
-    //     fetch(`${import.meta.env.VITE_API_URL}/api/v1/event/:id`)
-    //         .then((response) => response.json())
-    //         .then((data: eventType) => setEvent(data))
-    //         .catch((error) => console.error('Error fetching event:', error));
-    // }, []);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEvent = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/events/${event_id}`)
+                const response = await fetch(`http://localhost:8000/api/v1/events/${event_id}`, {
+                    method: 'GET',
+                    // credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                // console.log('Origin:', process.env.ORIGIN);
+
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -28,19 +31,26 @@ const Event: React.FC = () => {
                     ...data,
                     date: new Date(data.date),
                 });
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching event:', error);
+            } finally {
+                setLoading(false);
             }
-        }
-        if (event_id) {
-            fetchEvent();
-        }
+        };
+        fetchEvent();
+        // if (event_id) {
+        //     fetchEvent();
+        // }
     }, [event_id]);
+    if (loading) return <p>Loading...</p>;
+    if (!event) return <p>No event details available.</p>;
 
     return (
         <div>
             <h1>Event Page Here</h1>
             {event ? (
+
                 <EventDetails event={event} />
             ) : (
                 <p>loading event details...</p>
@@ -59,8 +69,8 @@ const EventDetails: React.FC<{ event: eventType }> = ({ event }) => {
             <p><strong>Date:</strong> {event.date.toDateString()}</p>
             <p><strong>Location:</strong> {event.location}</p>
             <p><strong>Description:</strong> {event.description}</p>
-            <p><strong>Member Price:</strong> ${event.member_price.toFixed(2)}</p>
-            <p><strong>Non-Member Price:</strong> ${event.non_member_price.toFixed(2)}</p>
+            <p><strong>Member Price:</strong> ${event.member_price !== undefined ? event.member_price.toFixed(2) : "N/A"}</p>
+            <p><strong>Non-Member Price:</strong> ${event.non_member_price !== undefined ? event.non_member_price.toFixed(2) : "N/A"}</p>
             <p><strong>Member Only:</strong> {event.member_only ? "Yes" : "No"}</p>
 
             <div>

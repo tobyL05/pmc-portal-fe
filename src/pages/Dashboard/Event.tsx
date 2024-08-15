@@ -39,18 +39,13 @@ const Event: React.FC = () => {
             }
         };
         fetchEvent();
-        // if (event_id) {
-        //     fetchEvent();
-        // }
     }, [event_id]);
     if (loading) return <p>Loading...</p>;
     if (!event) return <p>No event details available.</p>;
 
     return (
         <div>
-            <h1>Event Page Here</h1>
             {event ? (
-
                 <EventDetails event={event} />
             ) : (
                 <p>loading event details...</p>

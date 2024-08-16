@@ -14,7 +14,7 @@ const Event: React.FC = () => {
     useEffect(() => {
         const fetchEvent = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/v1/events/${event_id}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/events/${event_id}`, {
                     method: 'GET',
                     // credentials: "include",
                     headers: {

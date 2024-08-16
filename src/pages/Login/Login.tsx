@@ -53,18 +53,18 @@ export default function Login() {
 
   return (
     <>
-      {onboarding ? 
-        <OnboardingForm user={user!} creds={loginCreds!}/> :
-          <div className="login-container">
-            <div className="login-content">
-              <img className="login-content--logo"src={PMCLogo}/>
-              <h1 className="login-content--header">PMC Membership Portal</h1> 
-              <div className="login-content--button-container">
-                  <button className="login-googlesso" onClick={googleLogin}><img src={GoogleLogo} className="googleLogo" width={14} height={14}/>Continue with Google</button>
-                  <button className="login-continue" onClick={() => navigateTo("/dashboard")}>Continue as a non-member</button>
-              </div>
+      {onboarding ?
+        <OnboardingForm user={user!} creds={loginCreds!} /> :
+        <div className="login-container">
+          <div className="login-content">
+            <img className="login-content--logo" src={PMCLogo} />
+            <h1 className="login-content--header">PMC Membership Portal</h1>
+            <div className="login-content--button-container">
+              <button className="login-googlesso" onClick={googleLogin}><img src={GoogleLogo} className="googleLogo" width={14} height={14} />Continue with Google</button>
+              <button className="login-continue" onClick={() => navigateTo("/dashboard")}>Continue as a non-member</button>
             </div>
-          </div>} 
+          </div>
+        </div>}
     </>
   )
 }

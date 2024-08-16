@@ -27,7 +27,7 @@ export default function Dashboard() {
     }
     async function dashboardComponents() {
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/events/`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/events/`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',

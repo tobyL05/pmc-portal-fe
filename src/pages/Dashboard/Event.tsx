@@ -85,14 +85,14 @@ const EventDetails: React.FC<{ event: eventType }> = ({ event }) => {
 
             <div>
                 <h2>Attendees</h2>
-                {event.attendees.length > 0 ? (
+                {event && event.attendees && event.attendees.length > 0 ? (
                     <ul>
                         {event.attendees.map((attendee) => (
                             <li key={attendee.id}>{attendee.name}</li>
                         ))}
                     </ul>
                 ) : (
-                    <p>No attendees yet</p>
+                    <p>There are no attendees in this event...</p>
                 )}
             </div>
         </div>

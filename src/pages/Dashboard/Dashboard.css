@@ -1,0 +1,75 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Upcoming Events Section */
+.upcoming-events {
+    text-align: center;
+}
+
+.upcoming-events h2 {
+    margin-bottom: 20px;
+}
+
+.upcoming-events p {
+    margin-bottom: 40px;
+}
+
+/* Event List */
+.event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Event Card */
+.event {
+    background-color: #445088;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    text-align: left;
+    margin-bottom: 50px;
+    width: 500px;
+    height: 200px;
+}
+
+.event:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.event-image {
+    margin-left: 10px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    width: 180px;
+    height: 180px;
+    position: relative;
+    float: right;
+    left: -10px;
+    top: -110px;
+}
+
+/* .event-title {
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: aliceblue;
+    font-synthesis: none;
+} */
+
+.event-description {
+    margin-top: 10px;
+}

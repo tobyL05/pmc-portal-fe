@@ -4,34 +4,106 @@
     padding: 20px;
 }
 
-header {
+:root {
+    --border-color-light: #213547;
+    --border-color-dark: #ffffff;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --border-color: var(--border-color-dark);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --border-color: var(--border-color-light);
+    }
+}
+
+
+/* Header */
+.logo {
+    height: 30px;
+    width: 30px;
+    text-align: left;
+    padding: 10px;
+}
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    width: 85%;
+    height: 40px;
+    max-width: 1000px;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
 }
 
-/* Upcoming Events Section */
-.upcoming-events {
-    text-align: center;
+.header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 50%;
+    margin-left: 5px;
 }
 
-.upcoming-events h2 {
-    margin-bottom: 20px;
+.header-nav {
+    display: flex;
+    align-items: center;
 }
 
-.upcoming-events p {
-    margin-bottom: 40px;
+.header-link {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: right;
+    transition: 0.5s;
 }
 
-/* Event List */
-.event-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+.header-link:hover {
+    background-image: linear-gradient(to right, rgba(144, 155, 235), rgba(175, 113, 170), rgba(227, 49, 72));
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* For Safari */
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+.header-link:hover:after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, rgba(175, 113, 170), rgba(227, 49, 72));
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 /* Event Card */
+.upcoming-events {
+    margin-bottom: 20px;
+    margin-right: 450px;
+    text-align: center;
+}
+
+.event-date {
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 10px;
+    margin-right: 500px;
+}
+
 .event {
     background-color: #445088;
     backdrop-filter: blur(5px);
@@ -59,17 +131,28 @@ header {
     float: right;
     left: -10px;
     top: -110px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* .event-title {
-    margin-top: 10px;
-    font-size: 28px;
-    font-weight: bold;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    color: aliceblue;
-    font-synthesis: none;
-} */
 
-.event-description {
-    margin-top: 10px;
+.event-button {
+    border-radius: 20px;
+    border: none;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background: linear-gradient(to right, rgba(144, 155, 235), rgba(175, 113, 170), rgba(227, 49, 72));
+    cursor: pointer;
+    transition: border-color 0.5s;
+}
+
+.event-button:hover {
+    border-color: #ffffff;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+}
+
+.event-button:focus,
+.event-button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
 }

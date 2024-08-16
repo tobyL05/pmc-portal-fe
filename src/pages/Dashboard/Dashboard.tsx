@@ -38,15 +38,35 @@ export default function Dashboard() {
 
     return (
         <div>
+            <div>
+                <div className="header">
+                    <div className="header-icon">
+
+                        <a href="/"><img src="./src/assets/pmc_logo.svg" className="logo" ></img></a>
+                    </div>
+                    <nav className="header-nav">
+                        <a href="#upcoming-events" className="header-link">Events</a>
+                        <a href="/" className="header-link">Profile</a>
+                    </nav>
+                </div>
+            </div>
+            <div id="upcoming-events">
+                <h2 className="upcoming-events">Upcoming Events</h2>
+            </div>
             {allEvents.length > 0 ? (
                 allEvents.map(event => (
-                    <div key={event.event_Id} className="event">
-                        <h2>{event.name}</h2>
-                        <p>{event.description}</p>
-                        <img src={event.media[0]} alt="Event" className="event-image"></img>
-                        <button onClick={() => navigateTo(`/events/${event.event_Id}`)}>
-                            Register
-                        </button>
+                    <div key={event.event_Id}>
+                        <div className="event-date">
+                            <h2>{new Date(event.date).toDateString()}</h2>
+                        </div>
+                        <div className="event">
+                            <h2>{event.name}</h2>
+                            <p>{event.description}</p>
+                            <img src={event.media[0]} alt="Event" className="event-image"></img>
+                            <button className="event-button" onClick={() => navigateTo(`/events/${event.event_Id}`)}>
+                                Register
+                            </button>
+                        </div>
                     </div>
                 ))
             ) : (

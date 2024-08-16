@@ -16,33 +16,35 @@ export default function Login() {
 
   async function googleLogin() {
     try {
-        setPersistence(auth,inMemoryPersistence)
-        const authProvider = new GoogleAuthProvider()
-        const signInResult = await signInWithPopup(auth, authProvider)
-        const user: User  = signInResult.user;
-        const idToken = await user.getIdToken()
+      setPersistence(auth, inMemoryPersistence)
+      const authProvider = new GoogleAuthProvider()
+      const signInResult = await signInWithPopup(auth, authProvider)
+      const user: User = signInResult.user;
+      const idToken = await user.getIdToken()
 
-        // fetch login endpoint
-        const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            userUID: user.uid,
-            idToken: idToken
-          })
+      // fetch login endpoint
+      const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          userUID: user.uid,
+          idToken: idToken
         })
-        if (login.ok) {
-          // User exists so go to /dashboard
-          navigateTo("/dashboard")
-        } else {
-          // Currently logged in user that needs to be onboarded
-          setUser(user)
-          setLoginCreds({ userUID: user.uid, idToken: idToken })
-          setOnboarding(true) 
-        }
+      })
+      if (login.ok) {
+        // User exists so go to /dashboard
+        localStorage.setItem('member_id', user.uid)
+        navigateTo("/dashboard")
+      } else {
+        // Currently logged in user that needs to be onboarded
+        setUser(user)
+        setLoginCreds({ userUID: user.uid, idToken: idToken })
+        setOnboarding(true)
+        localStorage.setItem('member_id', user.uid)
+      }
     } catch (error) {
       // Show some sort of error component
       console.log(error);

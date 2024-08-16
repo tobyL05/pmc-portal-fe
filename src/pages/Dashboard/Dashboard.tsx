@@ -6,11 +6,25 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { eventType } from '../../types/api';
 
+
 export default function Dashboard() {
     // Check if logged in or continued as non-member
     const [allEvents, setAllEvents] = useState<eventType[]>([]);
     const navigateTo = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [memberId, setMemberId] = useState<string | undefined>(undefined);
 
+    function checkMember() {
+        try {
+            const loggedIn = localStorage.getItem('member_id') !== null;
+            const id = localStorage.getItem('member_id') ?? undefined;
+
+            setIsLoggedIn(loggedIn);
+            setMemberId(id);
+        } catch (error) {
+            console.error('Error checking user status (member/nonmember): ', error);
+        }
+    }
     async function dashboardComponents() {
         try {
             const response = await fetch(`http://localhost:8000/api/v1/events/`, {
@@ -34,6 +48,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         dashboardComponents();
+        checkMember();
     }, []);
 
     return (
@@ -41,15 +56,22 @@ export default function Dashboard() {
             <div>
                 <div className="header">
                     <div className="header-icon">
-
                         <a href="/"><img src="./src/assets/pmc_logo.svg" className="logo" ></img></a>
                     </div>
                     <nav className="header-nav">
                         <a href="#upcoming-events" className="header-link">Events</a>
-                        <a href="/" className="header-link">Profile</a>
+                        <div>
+                            {isLoggedIn ? (
+                                <a href="/profile" className="header-link">Profile</a>
+                            ) : (
+                                <a href="/" className="header-link">Profile</a>
+                            )}
+                        </div>
+                        {/* <a href="/" className="header-link">Profile</a> */}
                     </nav>
                 </div>
             </div>
+
             <div id="upcoming-events">
                 <h2 className="upcoming-events">Upcoming Events</h2>
             </div>
@@ -81,7 +103,7 @@ export default function Dashboard() {
 // 1. call Event page - DONE
 // display Event page's details - DONE
 // have a 'register' button - DONE
-// 2. At CSS, button to hover to Events section + profile
+// 2. At CSS, button to hover to Events section + profile - DONE
 // 3. Set persistance - check if logged in or continued as non-member
 // 4. When clicked 'register':
 //      if member, add member_id into eventDetails page (and do not display it in public!)

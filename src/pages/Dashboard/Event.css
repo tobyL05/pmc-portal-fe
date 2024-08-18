@@ -105,12 +105,14 @@ html {
     color: #ffffff;
     text-align: center;
     margin-bottom: 5px;
-    margin-left: 250px;
+    margin-left: 280px;
     font-size: 32px;
 }
 
 .event-details-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .event-details {
@@ -126,7 +128,48 @@ html {
     height: 200px;
     align-items: center;
     flex-wrap: wrap;
-    color: white
+    color: white;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.icon-text {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.icon-text div {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container h3 {
+    margin: 0;
+    margin-top: -5px;
+    color: inherit;
+    font-weight: bold;
+    font-size: normal;
+}
+
+.text-container h4 {
+    margin: 0;
+    line-height: 1.2;
+    color: grey;
+    font-size: smaller;
+    font-weight: normal;
+    padding-top: 2px;
 }
 
 .event-photo {

@@ -89,26 +89,55 @@ const Event: React.FC = () => {
                 <h2 className="event-title">{event.name}</h2>
                 <div className="event-details-container">
                     <div className="event-details">
-                        <p>{event.date.toDateString()}</p>
-                        <p>{event.location}</p>
-                        <p>member price: ${event.member_price !== undefined ? event.member_price.toFixed(2) : "N/A"}</p>
-                        <p>non-member price: ${event.non_member_price !== undefined ? event.non_member_price.toFixed(2) : "N/A"}</p>
-                        {event.attendees ? (
-                            <div>
-                                <p>{event.attendees.length}/50 spots filled</p>
-                                {/* {event.attendees.length > 0 ? (
-                                    <ul>
-                                        {event.attendees.map((attendee) => (
-                                            <li key={attendee.id}>{attendee.name}</li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p>no attendees in this event...</p>
-                                )} */}
+
+                        <div className="icon-text">
+                            <div className="icon">📅</div>
+                            <div className="text-container">
+                                <h3>{event.date.toDateString()}</h3>
+                                <h4>No time available yet</h4>
                             </div>
-                        ) : (
-                            <p>no attendees signed up yet...</p>
-                        )}
+                        </div>
+                        <div className="icon-text">
+                            <div className="icon">📍</div>
+                            <div className="text-container">
+                                <h3>{event.location}</h3>
+                                <h4>Get directions</h4>
+                            </div>
+                        </div>
+                        <div className="icon-text">
+                            <div className="icon">💳</div>
+                            <div className="text-container">
+                                {isLoggedIn ? (
+                                    <>
+                                        <h3>${event.member_price !== undefined ? event.member_price.toFixed(2) : "N/A"}</h3>
+                                        <h4>Member price</h4>
+                                    </>
+
+                                ) : (
+                                    <>
+                                        <h3>${event.non_member_price !== undefined ? event.non_member_price.toFixed(2) : "N/A"}</h3>
+                                        <h4>Non-member price</h4>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                        <div className="icon-text">
+                            <div className="icon">👥</div>
+                            <div className="text-container">
+                                {event.attendees ? (
+                                    <div>
+                                        <h3>{50 - event.attendees.length}/50 spots left</h3>
+                                        {event.attendees.length >= 0 ? (
+                                            <h4>Register now!</h4>
+                                        ) : (
+                                            <h4>Be the first to sign up!</h4>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <h3>no attendees signed up yet...</h3>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

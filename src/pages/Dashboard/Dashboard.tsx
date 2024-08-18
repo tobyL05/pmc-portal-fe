@@ -13,14 +13,21 @@ export default function Dashboard() {
     const navigateTo = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [memberId, setMemberId] = useState<string | undefined>(undefined);
+    const [displayName, setDisplayName] = useState<string | undefined>(undefined);
+    const [welcomeMessage, setWelcomeMessage] = useState<string>('Welcome guest');
 
     function checkMember() {
         try {
             const loggedIn = localStorage.getItem('member_id') !== null;
             const id = localStorage.getItem('member_id') ?? undefined;
+            const displayName = localStorage.getItem('member_name') ?? "guest";
 
             setIsLoggedIn(loggedIn);
             setMemberId(id);
+            setDisplayName(displayName);
+
+            const message = loggedIn ? `Welcome ${displayName}` : "Welcome guest";
+            setWelcomeMessage(message);
         } catch (error) {
             console.error('Error checking user status (member/nonmember): ', error);
         }
@@ -47,12 +54,12 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        dashboardComponents();
         checkMember();
+        dashboardComponents();
     }, []);
 
     return (
-        <div>
+        <div className="background-dashboard">
             <div>
                 <div className="header">
                     <div className="header-icon">
@@ -75,25 +82,36 @@ export default function Dashboard() {
             <div id="upcoming-events">
                 <h2 className="upcoming-events">Upcoming Events</h2>
             </div>
-            {allEvents.length > 0 ? (
-                allEvents.map(event => (
-                    <div key={event.event_Id}>
-                        <div className="event-date">
-                            <h2>{new Date(event.date).toDateString()}</h2>
-                        </div>
-                        <div className="event">
-                            <h2>{event.name}</h2>
-                            <p>{event.description}</p>
-                            <img src={event.media[0]} alt="Event" className="event-image"></img>
-                            <button className="event-button" onClick={() => navigateTo(`/events/${event.event_Id}`)}>
-                                Register
-                            </button>
-                        </div>
+            <div className="welcome-message">
+                <h3>{welcomeMessage}</h3>
+            </div>
+            <div className="events-container">
+                <div className="card">
+                    <div>
+                        {allEvents.length > 0 ? (
+                            allEvents.map(event => (
+                                <div key={event.event_Id}>
+                                    <div className="event-date">
+                                        <h2>{new Date(event.date).toDateString()}</h2>
+                                    </div>
+
+                                    <div className="event">
+                                        <h2>{event.name}</h2>
+                                        <p>{event.description}</p>
+                                        <img src={event.media[0]} alt="Event" className="event-image"></img>
+                                        <button className="event-button" onClick={() => navigateTo(`/events/${event.event_Id}`)}>
+                                            Register
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No events found.</p>
+                        )}
                     </div>
-                ))
-            ) : (
-                <p>No events found.</p>
-            )}
+                </div>
+            </div>
+
         </div>
     )
 }
@@ -107,4 +125,4 @@ export default function Dashboard() {
 // 3. Set persistance - check if logged in or continued as non-member
 // 4. When clicked 'register':
 //      if member, add member_id into eventDetails page (and do not display it in public!)
-//      if non-member, ...?
+//      if non-member, ...? -- if there's no member_id, non-member price display

@@ -22,6 +22,8 @@ export default function Login() {
       const user: User = signInResult.user;
       const idToken = await user.getIdToken()
 
+      const displayName = user.displayName ?? "User";
+
       // fetch login endpoint
       const login = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
         method: "POST",
@@ -36,14 +38,16 @@ export default function Login() {
       })
       if (login.ok) {
         // User exists so go to /dashboard
-        localStorage.setItem('member_id', user.uid)
+        localStorage.setItem('member_id', user.uid);
+        localStorage.setItem('member_name', displayName || "guest");
         navigateTo("/dashboard")
       } else {
         // Currently logged in user that needs to be onboarded
         setUser(user)
         setLoginCreds({ userUID: user.uid, idToken: idToken })
         setOnboarding(true)
-        localStorage.setItem('member_id', user.uid)
+        localStorage.setItem('member_id', user.uid);
+        localStorage.setItem('member_name', displayName || "guest");
       }
     } catch (error) {
       // Show some sort of error component

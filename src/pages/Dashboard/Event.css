@@ -110,7 +110,7 @@ html {
 }
 
 .event-details-container {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     justify-content: center;
 }
@@ -125,10 +125,11 @@ html {
     margin-left: 400px;
     margin-bottom: 10px;
     width: 280px;
-    height: 200px;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     color: white;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .icon {
@@ -141,8 +142,9 @@ html {
 
 .icon-text {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .icon-text div {
@@ -153,6 +155,7 @@ html {
 .text-container {
     display: flex;
     flex-direction: column;
+    margin-left: 10px;
 }
 
 .text-container h3 {
@@ -186,6 +189,11 @@ html {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+.event-desc {
+    margin-top: 20px;
+    text-align: left;
+}
+
 .event-desc h3 {
     margin-top: -300px;
     color: #ffffff;
@@ -198,21 +206,34 @@ html {
 }
 
 
+.bottom-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .signup-button {
     border-radius: 20px;
-    padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background: #ffffff;
+    background: #f0f0f0;
+    margin-top: -5px;
     margin-left: 400px;
     width: 350px;
     height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: border-color 0.5s;
 }
 
 .signup-button:hover {
-    /* border-color: #ffffff; */
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0);
+    border-color: #ffffff;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+}
+
+.signup-button:focus,
+.signup-button:focus-visible {
+    outline: 1px auto -webkit-focus-ring-color;
 }

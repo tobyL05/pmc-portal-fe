@@ -68,7 +68,7 @@ const Event: React.FC = () => {
         <div className="background-event">
             <div className="header">
                 <div className="header-icon">
-                    <a href="/"><img src="./src/assets/pmc_logo.svg" className="logo" ></img></a>
+                    <a href="/"><img src="../src/assets/pmc_logo.svg" className="logo" ></img></a>
                 </div>
                 <nav className="header-nav">
                     <a href="#upcoming-events" className="header-link">Events</a>
@@ -79,7 +79,6 @@ const Event: React.FC = () => {
                             <a href="/" className="header-link">Profile</a>
                         )}
                     </div>
-                    {/* <a href="/" className="header-link">Profile</a> */}
                 </nav>
             </div>
 
@@ -106,7 +105,7 @@ const Event: React.FC = () => {
                         </div>
                         <div className="icon-text">
                             <div className="icon">💳</div>
-                            <div className="text-container">
+                            <div className="text-container" style={{ flexDirection: 'column' }}>
                                 {isLoggedIn ? (
                                     <>
                                         <h3>${event.member_price !== undefined ? event.member_price.toFixed(2) : "N/A"}</h3>
@@ -141,6 +140,7 @@ const Event: React.FC = () => {
                     </div>
                 </div>
             </div>
+
             <button className="signup-button" onClick={() => navigateTo(`/dashboard`)}>
                 Sign up
             </button>
@@ -150,42 +150,6 @@ const Event: React.FC = () => {
                 <p>{event.description}</p>
             </div>
 
-
-            {/* <h1>{event.name}</h1>
-            <p><strong>Date:</strong> {event.date.toDateString()}</p>
-            <p><strong>Location:</strong> {event.location}</p>
-            <p><strong>Description:</strong> {event.description}</p>
-            <p><strong>Member Price:</strong> ${event.member_price !== undefined ? event.member_price.toFixed(2) : "N/A"}</p>
-            <p><strong>Non-Member Price:</strong> ${event.non_member_price !== undefined ? event.non_member_price.toFixed(2) : "N/A"}</p>
-            <p><strong>Member Only:</strong> {event.member_only ? "Yes" : "No"}</p> */}
-
-            {/* <div>
-                <h2>Media</h2>
-                {event.media.length > 0 ? (
-                    <ul>
-                        {event.media.map((url, index) => (
-                            <li key={index}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">Media {index + 1}</a>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No media available</p>
-                )}
-            </div> */}
-
-            {/* <div>
-                <h2>Attendees</h2>
-                {event && event.attendees && event.attendees.length > 0 ? (
-                    <ul>
-                        {event.attendees.map((attendee) => (
-                            <li key={attendee.id}>{attendee.name}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>There are no attendees in this event...</p>
-                )}
-            </div> */}
         </div>
     );
 }

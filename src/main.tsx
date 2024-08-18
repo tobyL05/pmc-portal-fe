@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     path: "/events/:event_id",
     element: <Event />
   },
+  // {
+  //   path: "/events/:event_id", //passes a params object to element containing :id
+  //   element: <EventDetails />
+  // },
   {
     path: "/profile/:profileId",
     element: <></>

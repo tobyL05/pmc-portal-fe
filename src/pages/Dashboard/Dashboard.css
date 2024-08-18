@@ -45,6 +45,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 3px;
     width: 30px;
 }
 

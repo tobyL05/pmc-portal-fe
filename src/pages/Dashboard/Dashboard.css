@@ -21,16 +21,18 @@ body {
 }
 
 .background-dashboard .header {
-    display: flex;
-    justify-content: space-between;
-    top: 20px;
-    height: 50px;
-    width: 800px;
-    padding: 20px;
-    border: 1px solid #ffffff;
-    border-radius: 50px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 32px;
+    width: 800px;
+    height: 61px;
+    left: 320px;
     margin-top: 30px;
+    border: 1px solid #FFFFFF;
+    border-radius: 50px;
 }
 
 .background-dashboard .header-icon {
@@ -44,6 +46,7 @@ body {
 .background-dashboard .header-nav {
     display: flex;
     align-items: center;
+    font-weight: bold;
 }
 
 .background-dashboard .header-link {
@@ -55,7 +58,7 @@ body {
 }
 
 .background-dashboard .header-link:hover {
-    background-image: linear-gradient(to right, rgba(144, 155, 235), rgba(175, 113, 170), rgba(227, 49, 72));
+    background-image: linear-gradient(134.02deg, #8D9BEB 29.24%, #AF71AA 57.54%, #E33148 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -66,23 +69,30 @@ body {
     content: '';
     height: 100%;
     width: 100%;
-    background: linear-gradient(to right, rgba(175, 113, 170), rgba(227, 49, 72));
+    background: linear-gradient(134.02deg, #8D9BEB 29.24%, #AF71AA 57.54%, #E33148 100%);
 }
 
-.background-event .header-button {
-    color: white;
-    border-radius: 25px;
-    background-color: #333;
-    padding: 8px 16px;
+.header-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 10px;
+    width: 70px;
+    height: 20px;
+    background: #F1F1F1;
+    border-radius: 50px;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
     text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.5s;
-    margin-right: 20px;
+    font-weight: bold;
 }
 
-.background-event .header-button:hover {
-    background-color: #444;
+.header-button:hover {
+    background: linear-gradient(134.02deg, #8D9BEB 29.24%, #AF71AA 57.54%, #E33148 100%);
+    color: white;
 }
 
 html {
@@ -91,23 +101,34 @@ html {
 
 /* Event Card */
 .upcoming-events {
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 20px;
-    margin-right: 550px;
+    margin-right: 600px;
     text-align: center;
     color: #ffffff;
+}
+
+.description {
+    font-size: small;
+    font-weight: normal;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 80px;
+    margin-right: 600px;
+    text-align: left;
+    margin-left: 330px;
 }
 
 .event-date {
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     font-size: 12px;
-    margin-right: 600px;
+    margin-right: 650px;
 }
 
 .welcome-message {
-    margin-top: -60px;
-    margin-bottom: -500px;
+    margin-top: -170px;
+    margin-bottom: -430px;
     margin-left: 600px;
     text-align: right;
     font-size: small;
@@ -121,10 +142,13 @@ html {
 
 .card {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    z-index: 2;
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
+    flex: 1;
 }
 
 .event {
@@ -134,12 +158,16 @@ html {
     padding: 15px;
     border-radius: 12px;
     text-align: left;
-    width: 700px;
-    height: 200px;
-    align-items: center;
+    width: 800px;
+    height: 350px;
+    align-items: start;
     color: #ffffff;
-    padding-left: 2.5%;
+    padding-left: 4%;
+
     position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
 }
 
 .event:hover {
@@ -149,20 +177,50 @@ html {
 
 .event-image {
     margin-left: 10px;
-    margin-bottom: 50px;
-    border-radius: 8px;
-    width: 180px;
-    height: 180px;
+    border-radius: 13px;
+    width: 240px;
+    height: 230px;
     position: relative;
     float: right;
-    left: -10px;
-    top: -110px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    left: -25px;
+    top: -135px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 
+.event-time-loc {
+    height: 19px;
+    font-style: normal;
+    font-weight: 510;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+/* .event-title {
+    font-style: normal;
+    font-weight: 590;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+} */
+
+.event-description {
+    width: 60%;
+}
+
+
 .event-button {
-    border-radius: 20px;
+    /* border-radius: 20px;
     border: none;
     padding: 0.6em 1.2em;
     font-size: 1em;
@@ -171,7 +229,27 @@ html {
     background: linear-gradient(to right, rgba(144, 155, 235), rgba(175, 113, 170), rgba(227, 49, 72));
     cursor: pointer;
     transition: border-color 0.5s;
+    color: #ffffff; */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 152px;
+    height: 51px;
+    background: linear-gradient(134.02deg, #8D9BEB 29.24%, #AF71AA 57.54%, #E33148 100%);
+    border-radius: 50px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
     color: #ffffff;
+    font-size: large;
+    font-weight: 500;
+    font-family: inherit;
+    border: none;
+    margin-top: 60px;
+    align-self: flex-start;
 }
 
 .event-button:hover {
@@ -185,35 +263,20 @@ html {
 }
 
 .disabled-card {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
     pointer-events: none;
 }
 
-.disabled-card::after {
-    content: '';
+.disabled-card .overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(42, 50, 86, 0.893);
-    pointer-events: none;
-    border-radius: 12px;
-    z-index: 1;
-    box-shadow: inset 0 0 0 rgba(64, 82, 104, 1);
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 800px;
+    height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 12px;
+    background: rgba(42, 50, 86, 0.86);
     z-index: 2;
 }
 

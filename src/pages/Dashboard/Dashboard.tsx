@@ -69,6 +69,8 @@ export default function Dashboard() {
                 <h2 className="upcoming-events">Upcoming Events</h2>
             </div>
 
+            <h3 className="description">Every week, we feature some of our favorite events in cities like New York and London. You can also check out some great calendars from the community.</h3>
+
             <div className="welcome-message">
                 <h3>{welcomeMessage}</h3>
             </div>
@@ -79,9 +81,11 @@ export default function Dashboard() {
                         allEvents.map(event => (
                             <div
                                 key={event.event_Id}
-                                className="card"
+                                className={`card ${(!auth.currentUser && !event.non_member_price) ? "disabled-card" : ""}`}
                                 onClick={() => {
-                                    if (auth.currentUser) {
+                                    if (auth.currentUser || event.non_member_price) { // if member, then go to event page
+                                        navigateTo(`/events/${event.event_Id}`);
+                                    } else if (auth.currentUser && !event.non_member_price) {
                                         navigateTo(`/events/${event.event_Id}`);
                                     }
                                 }}>
@@ -89,14 +93,16 @@ export default function Dashboard() {
                                     <h2>{new Date(event.date).toDateString()}</h2>
                                 </div>
 
-                                <div className={`event ${!event.non_member_price ? "disabled-card" : "event"}`}>
+                                <div className="event">
+                                    <p className="event-time-loc">7:00 PM | {event.location}</p>
                                     <h2>{event.name}</h2>
-                                    <p>{event.description}</p>
+                                    <p className="event-description">{event.description}</p>
+
                                     <img src={event.media[0]} alt="Event" className="event-image"></img>
                                     <button className="event-button" onClick={(e) => e.stopPropagation()}>
                                         Register
                                     </button>
-                                    {!event.non_member_price && (
+                                    {!event.non_member_price && !auth.currentUser && (
                                         <div className="overlay">
                                             <p className="disabled-comment">Please sign in to your PMC account to view the details for this event.</p>
                                         </div>
@@ -122,3 +128,16 @@ export default function Dashboard() {
 // 1. Only display member_only pop-up events in dashboard (if they don't have a non-member price, its member-only!)
 // 2. fix UI of event detail page
 // 3. Change header Sign in UI + functionality to end session for signing out
+
+
+// CURRENt ISSUES:
+// if logged in as member -> all events are clickable, but some of the cards are still overlaid
+// if not logged in as non-member -> all events are not clickable, but some of the cards are overlaid (which is what we want)
+
+// member + non-member price available = CLICKABLE
+// member + !non-member price = CLICKABLE
+// non member + non-member price available = CLICKABLE
+// non member + !non-member price = NOT CLICKABLE
+
+// logged in as member -> can only see the member price
+// logged in as non-member -> can see both member and non-member price

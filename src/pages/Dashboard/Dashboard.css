@@ -104,8 +104,15 @@ html {
     margin-top: 40px;
     margin-bottom: 20px;
     margin-right: 600px;
-    text-align: center;
+    text-align: left;
     color: #ffffff;
+    max-width: 800px;
+    padding-left: 15px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; */
+
 }
 
 .description {
@@ -114,9 +121,13 @@ html {
     color: white;
     margin-top: 0px;
     margin-bottom: 80px;
-    margin-right: 600px;
+    /* margin-right: 600px; */
     text-align: left;
-    margin-left: 330px;
+    max-width: 800px;
+    margin-left: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* margin-left: 330px; */
 }
 
 .event-date {
@@ -127,7 +138,7 @@ html {
 }
 
 .welcome-message {
-    margin-top: -170px;
+    margin-top: -180px;
     margin-bottom: -430px;
     margin-left: 600px;
     text-align: right;
@@ -167,6 +178,7 @@ html {
     position: relative;
     z-index: 1;
     box-sizing: border-box;
+    cursor: pointer;
 
 }
 

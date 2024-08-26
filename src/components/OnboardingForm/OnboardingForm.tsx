@@ -19,7 +19,13 @@ const UserZodObj = z.object({
         message: "Please enter a last name."
     }),
 
-    ubc_student: z.enum(["yes", "no, other uni", "no, other"], {
+
+    pronouns: z.string().min(1,{
+        message: "Please enter your pronouns."
+    }),
+
+    ubc_student: z.enum(["yes","no, other uni","no, other"],{
+
         message: "Please select a value."
     }),
     student_id: z.number({
@@ -36,7 +42,13 @@ const UserZodObj = z.object({
         })
         .optional(),
 
-    year: z.enum(["1", "2", "3", "4", "4+"], {
+
+    university: z.string().min(1,{
+        message: "Please enter the name of the university you go to."
+    }),
+
+    year: z.enum(["1","2","3","4","5+"], {
+
         message: "Please select a value."
     }).optional(),
 
@@ -151,6 +163,15 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
                                 register={register}
                                 error={errors.last_name}
                             />
+                            <div style={{"width": "16rem"}}>
+                            <FormInput
+                                type={"text"}
+                                placeholder={"Pronouns"}
+                                name={"pronouns"}
+                                register={register}
+                                error={errors.pronouns}
+                            />
+                            </div>
                         </div>
 
                         <div className="onboarding-form-select--container">
@@ -163,7 +184,18 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
                             {errors.ubc_student && <span>{errors.ubc_student.message}</span>}
                         </div>
 
-                        {student_status === "yes" &&
+
+                        {student_status === "no, other uni" &&
+                            <FormInput
+                                type="text"
+                                placeholder="University"
+                                name="university"
+                                register={register}
+                                error={errors.university}
+                            />
+                        }
+
+                        {student_status === "yes" && 
                             <div className="onboarding-form-content--row">
                                 <FormInput
                                     type="text"
@@ -185,7 +217,7 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
                                         <option value={"2"}>2</option>
                                         <option value={"3"}>3</option>
                                         <option value={"4"}>4</option>
-                                        <option value={"4+"}>4+</option>
+                                        <option value={"5+"}>5+</option>
                                     </select>
                                     {errors.year && <span>{errors.year.message}</span>}
                                 </div>

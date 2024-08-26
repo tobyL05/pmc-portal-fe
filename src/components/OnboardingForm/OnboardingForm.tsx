@@ -22,7 +22,7 @@ const UserZodObj = z.object({
 
     pronouns: z.string().min(1,{
         message: "Please enter your pronouns."
-    }),
+    }).optional(),
 
     ubc_student: z.enum(["yes","no, other uni","no, other"],{
 
@@ -45,7 +45,7 @@ const UserZodObj = z.object({
 
     university: z.string().min(1,{
         message: "Please enter the name of the university you go to."
-    }),
+    }).optional(),
 
     year: z.enum(["1","2","3","4","5+"], {
 
@@ -195,7 +195,7 @@ export default function OnboardingForm({ user, creds }: { user: User, creds: log
                             />
                         }
 
-                        {student_status === "yes" && 
+                        {student_status === "yes" &&
                             <div className="onboarding-form-content--row">
                                 <FormInput
                                     type="text"

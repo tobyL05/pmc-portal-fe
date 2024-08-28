@@ -1,20 +1,19 @@
 // STORE API REQUEST/RESPONSE TYPES HERE
 
-import { User } from "firebase/auth"
-
 type userDocument = {
     first_name: string
     last_name: string
     pronouns: string
     email: string // from google
+    pfp: string // from google
     displayName: string // from Google
-    university: string
-    student_id: number
-    year: string // "5+"
-    faculty: string
-    major: string
-    why_PM: string
-    returning_member: boolean
+    university?: string
+    student_id?: number
+    year?: string // "5+"
+    faculty?: string
+    major?: string
+    why_pm: string
+    returning_member: string
 }
 
 type loginBody = {
@@ -57,5 +56,22 @@ type attendeeType = {
     dietary: string
 }
 
+type paymentIntentResponse = {
+    payment_secret: string
+}
 
+type paymentInfo = {
+    id: string
+    amount: number
+    status: string
+    created: Timestamp
+}
 
+type addTransactionBody = {
+    type: "membership" | "event"
+    member_id?: string
+    attendee_id?: string
+    payment: paymentInfo
+}
+
+export { userDocument, loginBody, onboardingBody, eventType, attendeeType, paymentIntentResponse, addTransactionBody, paymentInfo }

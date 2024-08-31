@@ -125,10 +125,10 @@ const Event: React.FC = () => {
             <div className="icon-text">
               <div className="icon">👥</div>
               <div className="text-container">
-                {event.attendees ? (
+                {event.attendee_Ids ? (
                   <div>
-                    <h3>{50 - event.attendees.length}/50 spots left</h3>
-                    {event.attendees.length >= 0 ? (
+                    <h3>{50 - event.attendee_Ids.length}/50 spots left</h3>
+                    {event.attendee_Ids.length >= 0 ? (
                       <h4>Register now!</h4>
                     ) : (
                       <h4>Be the first to sign up!</h4>
@@ -191,7 +191,10 @@ const Event: React.FC = () => {
       <EventRegistrationModal
           isModalOpen={isSignUpFormOpen}
           setIsModalOpen={setIsSignUpFormOpen}
-          eventId={event_id ?? ""}/>
+          eventId={event_id ?? ""}
+          memberPrice={event.member_price}
+          nonMemberPrice={event.non_member_price}
+      />
       
       <img src={event.media[0]} alt="Event" className="event-photo"></img>
       <div className="event-desc">

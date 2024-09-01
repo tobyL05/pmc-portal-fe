@@ -13,6 +13,9 @@ type EventCardProps = {
 
 export function EventCard(props: EventCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isEventFull =
+    props.event.maxAttendee !== null &&
+    props.event.attendee_Ids?.length >= props.event.maxAttendee;
 
   function handleRegister(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
@@ -35,11 +38,29 @@ export function EventCard(props: EventCardProps) {
             <p className="event-time-loc">7:00 PM | {props.event.location}</p>
             <h2>{props.event.name}</h2>
             <p className="event-description">{props.event.description}</p>
+
             {props.showRegister && (
-              <button className="event-button" onClick={handleRegister}>
+              <button
+                className={`event-button ${
+                  props.event.maxAttendee !== null &&
+                  props.event.attendee_Ids?.length >= props.event.maxAttendee
+                    ? "disabled-button"
+                    : ""
+                }`}
+                onClick={handleRegister}
+                disabled={
+                  props.event.maxAttendee !== null &&
+                  props.event.attendee_Ids?.length >= props.event.maxAttendee
+                }
+              >
                 Register
               </button>
             )}
+
+            {isEventFull && (
+              <p className="error-message">sorry, this event is full...</p>
+            )}
+
             <EventRegistrationModal
               eventId={props.event?.event_Id}
               memberPrice={props.event?.member_price}

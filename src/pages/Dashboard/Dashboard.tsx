@@ -56,7 +56,7 @@ export default function Dashboard() {
               : "Welcome guest"}
           </h4>
         </div>
-        <p>
+        <p className="dashboard-main-text">
         At PMC, our mission is to empower aspiring product managers 
         by providing valuable insights, hands-on experiences, and 
         opportunities to connect with industry leaders. Check out 
@@ -78,7 +78,7 @@ export default function Dashboard() {
               />
             ))
           ) : (
-            <p style={{ color: "white" }}>No events found.</p>
+            <p className="dashboard-staytuned">Stay tuned for future events!</p>
           )}
         </div>
       </div>

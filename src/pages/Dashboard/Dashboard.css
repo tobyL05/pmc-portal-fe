@@ -14,8 +14,35 @@ body {
   gap: 2rem;
 }
 
+.dashboard-top-banner {
+  text-align: center;
+  background-color: #fff;
+  color: var(--pmc-dark-blue);
+  padding: 20px 10px;
+  border-radius: 20px;
+}
+
+.dashboard-top-banner a {
+  text-decoration: underline;
+}
+
+.dashboard-top-banner a:visited {
+  color: var(--pmc-dark-blue)
+}
+
 .dashboard-container {
   width: 100%;
+}
+
+.dashboard-main-text {
+    height: 8rem;
+}
+
+.dashboard-staytuned {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin-top: 5rem;
 }
 
 html {
@@ -26,7 +53,7 @@ html {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
 
 .welcome-message {

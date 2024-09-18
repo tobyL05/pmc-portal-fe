@@ -7,7 +7,7 @@ import { useAuth } from "../../providers/Auth/AuthProvider";
 import { EventRegistrationModal } from "../../components/Event/EventRegistrationModal";
 import { CiCalendar, CiLocationOn } from "react-icons/ci";
 import { MdOutlinePeopleAlt } from "react-icons/md";
-import { PiLinkSimpleLight } from "react-icons/pi";
+// import { PiLinkSimpleLight } from "react-icons/pi";
 import { FaDollarSign } from "react-icons/fa6";
 
 const Event: React.FC = () => {

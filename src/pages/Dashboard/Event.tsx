@@ -93,13 +93,13 @@ const Event: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="icon-text">
+                            {/* <div className="icon-text">
                                 <div className="icon"><PiLinkSimpleLight /></div>
                                 <div className="text-container">
                                     <h3>{event.name} Page</h3>
                                     <h4>www.{event.name}.com</h4>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="event-details-container">

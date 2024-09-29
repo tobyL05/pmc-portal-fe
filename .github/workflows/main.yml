@@ -4,12 +4,6 @@ on:
   pull_request:
     branches: 
       - main
-
-env:
-  PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  APP_NAME: ${{ secrets.APP_NAME }}
-  REGION: us-west1
-
 jobs:
   # test:
     #  run tests here
@@ -34,6 +28,7 @@ jobs:
               touch .secret/.env
               echo VITE_API_URL=${{ secrets.VITE_API_URL }} >> .secret/.env
               echo VITE_STRIPE_KEY=${{ secrets.VITE_STRIPE_KEY }} >> .secret/.env
+              
           - name: Create Credential JSON
             id: create-json-1
             uses: jsdaniell/create-json@v1.2.2
